@@ -1,0 +1,24 @@
+{
+    "name": "react-app",
+    "version": "1.0.0",
+    "discription": "",
+    "type": "module",
+    "main": "./src/index.js",
+    "scripts": {
+        "dev": "node ./src/index.js",
+        "test": "echo \"Error: no test specified\"&& exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "packageManager": "pnpm@10.32.1",
+    "engines": {
+        "node": "v24.13.1"
+    },
+    "dependencies": {
+        "express": "^5.2.1"
+    },
+    "devDependencies":{
+        "nodemon":"^3.1.14"
+    }
+}

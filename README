@@ -1,0 +1,64 @@
+## Git commands
+##git setup
+a. Git New Repo  setup (existing code in dev machine a new repo with no codr in git remote)
+- Run`git init` from the command at your code directory
+- copy remote url from git remote
+- run `git remote add origin <url>`
+
+**b. Cloning a new repo (You want to get/download all the code from git remote)**
+
+- get in the directory where you want to clone the app
+- run `git clone <url> <foldername>`
+- this will setup `<reponame> or <folder name>` folder at your clonned location
+
+## commit command
+
+**a. adding the changes**
+
+-run `git add.` or `git add <file name>`
+
+**b. commit message**
+
+-run after`adding the changes` this step, `git commit -m "<your message>"`
+
+
+## git operation (push or pull)
+
+**a. git push operation**
+-run `git push origin [-u] <localBranchName>[:<remoteBranchName>]`(default branch will only get pushed (main))
+
+**b. git pull operation**
+
+- check if codes are commited or not, if not commited, commit your changes first
+after commit run, `git pull origin <remoteBranchName>`
+-If there are conflicts, resolve the conflicts annuallly,
+- atfer every conflict resoulation, commit the changes
+
+
+* git branch
+**a. create a new Branch**
+
+-run `git checkout -b <branchName>` it will create a new branch from current branch
+
+**b. list all branches*
+
+-
+
+
+
+
+
+# html
+
+                              margin
+
+                              border
+                             
+                             padding
+margin  border padding      content     padding border margin
+                            padding
+
+                            border
+
+                            margin
+
