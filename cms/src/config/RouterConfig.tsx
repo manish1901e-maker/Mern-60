@@ -7,13 +7,20 @@ import AdminLayout from "../pages/layouts/AdminLayout";
 import UserCreate from "../pages/user/UserCreate";
 import UserList from "../pages/user/UserList";
 import UserDetail from "../pages/user/UserDetail";
+import CheckPermission from "../componets/auth/CheckPermission";
 
 const routerConf = createBrowserRouter([
     { path: "/", element: <HomePage /> },
     { path: "/forget-password", element: <ForgotPasswordPage /> },
 
     {
-        path: "/admin/", element: <AdminLayout />, children: [
+        path: "/admin/",
+        element: (
+            <CheckPermission role="admin">
+                <AdminLayout />
+            </CheckPermission>
+        ),
+        children: [
             { path: "users", element: <UserList /> },
             { path: "user/:username", element: <UserDetail /> },
             { path: "user/create", element: <UserCreate /> }
@@ -21,14 +28,26 @@ const routerConf = createBrowserRouter([
     },
 
     {
-        path: "/user", element: <UserLayout />, children: [
+        path: "/user",
+        element: (
+            <CheckPermission role="user">
+                <UserLayout />
+            </CheckPermission>
+
+        ),
+        children: [
             { index: true, element: <> Dashboard (KPI)</> },
             { path: "profile", element: <> User Profile </> },
             { path: "*", element: <NotFound /> },
         ],
     },
     {
-        path: "/moderator", element: <UserLayout />, children: [
+        path: "/moderator", 
+        element: (
+        <CheckPermission role="moderator">
+            <UserLayout />
+        </CheckPermission>), 
+        children: [
             { index: true, element: <> Dashboard (KPI)</> },
             { path: "profile", element: <> User Profile </> },
             { path: "*", element: <NotFound /> },

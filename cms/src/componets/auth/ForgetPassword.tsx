@@ -1,5 +1,5 @@
 
-import { NavLink } from "react-router"
+import { NavLink, useNavigate } from "react-router"
 import logo from "../../assets/images/logo.png"
 import { FormActionButton } from "../ui/button/FormButtons"
 import { TextInput } from "../ui/form/input"
@@ -19,6 +19,7 @@ export type IForgetPasswordData=z.infer<typeof ForgetPasswordDTO>
 // }
 
 export default function ForgotPasswordPage(){
+    const navigate = useNavigate()
  const {control, handleSubmit}=useForm({
     defaultValues:{
         username:""
@@ -29,6 +30,7 @@ export default function ForgotPasswordPage(){
     const formSubmitEvent=(data: IForgetPasswordData )=>{
         console.log(data)
         // validate=>
+        navigate("/")
     }
     return(<>
     <section className="bg-gray-100 flex w-full h-screen items-center justify-center">
