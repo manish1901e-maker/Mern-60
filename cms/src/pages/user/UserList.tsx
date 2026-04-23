@@ -1,7 +1,37 @@
 import { NavLink } from "react-router";
 import { PageHeading, SubHeading } from "../../componets/ui/typography/Title";
+import { useEffect, useState } from "react";
+import type { ICreateUser } from "../../lib/types/AuthType";
+import { toast } from "sonner";
+import axiosInstance from "../../lib/client/axios-client";
 
 export default function UserList(){
+    const [userList, setUserList]= useState<Array<ICreateUser>>()
+
+    const getAllUsers =async()=>{
+        try{
+            const response =await axiosInstance.get("/user", {
+                params: {
+                    limit:20,
+                    skip:0
+                }
+            }) as {users: Array<ICreateUser>, skip:number, limit:number, total:number}
+            setUserList(response.users)
+
+        } catch (exception){
+            console.log(exception)
+        toast.error("Error while fetching users...",{
+            description:"There was a problem while fetching user list.please clear the cache and try again"
+        })
+        }
+    }
+    useEffect(()=>{
+        //first api call
+       
+         return()=>{
+            getAllUsers()
+        }
+    },[])
     return(
         <>
         <section className="w-full flex p-5 bg-white flex-col gap-5">
@@ -12,7 +42,7 @@ export default function UserList(){
           <NavLink className={'w-50 p-2 bg-teal-800 text-white rounded-lg flex justify-center items-center transition hover:bg-teal-900 hover:scale-103 hover:underline '} to="/admin/user/create">Add User</NavLink>
         </div>
                 
-                <div className="flex w-full">
+                <div className="flex w-full h-[80vh] overflow-y-scrool">
                     <table className="w-full">
                         <thead>
                             <tr>
@@ -26,16 +56,27 @@ export default function UserList(){
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="bg-gray-100">
-                            <td className="border px-3">kevin</td>
-                            <td className="border px-3">manish@gmail.com</td>
-                            <td className="border px-3">Admin</td>
-                            <td className="border px-3">Male</td>
-                            <td className="border px-3">Bhaktapur</td>
+                        {
+                               userList && userList.map((user:ICreateUser, indx: number)=>{
+                                return(
+                                    
+                                
+                            <tr key={indx} className="bg-gray-100">
+                            <td className="border px-3">{user.firstName+" "+user.lastName}</td>
+                            <td className="border px-3">{user.email}</td>
+                            <td className="border px-3">{user.role}</td>
+                            <td className="border px-3">{user.gender}</td>
+                            <td className="border px-3">{user.address.address+" "+user.address.city+" "+user.address.country}</td>
                             <td className="border px-3">
                                 <div>
-                                    <SubHeading className="text-2xl">Broadway Infosys</SubHeading>
-                                    <p className="text-sm font-semibold">Tinkune Kathmandu</p>
+                                    <SubHeading className="text-xl">
+                                    {user.company.name}
+                                    </SubHeading>
+                                    
+                                    <p className="text-sm font-semibold">
+                                    {user.company.title}
+                                    , {user.company.department}
+                                    </p>
                                 </div>
                             </td>
                            <td className="border px-3">
@@ -43,40 +84,10 @@ export default function UserList(){
                              / Edit / Delete
                               </td>
                            </tr>
-                           <tr className="bg-white">
-                            <td className="border px-3">anish</td>
-                            <td className="border px-3">manish@gmail.com</td>
-                            <td className="border px-3">Admin</td>
-                            <td className="border px-3">Male</td>
-                            <td className="border px-3">Bhaktapur</td>
-                            <td className="border px-3">
-                                <div>
-                                    <SubHeading className="text-2xl">Broadway Infosys</SubHeading>
-                                    <p className="text-sm font-semibold">Tinkune Kathmandu</p>
-                                </div>
-                            </td>
-                           <td className="border px-3">
-                            <NavLink className={'text-teal-700 underline text-sm'} to='/admin/user/anish'>view</NavLink>
-                             / Edit / Delete
-                              </td>
-                           </tr>
-                           <tr className="bg-gray-100">
-                            <td className="border px-3">Manish</td>
-                            <td className="border px-3">manish@gmail.com</td>
-                            <td className="border px-3">Admin</td>
-                            <td className="border px-3">Male</td>
-                            <td className="border px-3">Bhaktapur</td>
-                            <td className="border px-3">
-                                <div>
-                                    <SubHeading className="text-2xl">Broadway Infosys</SubHeading>
-                                    <p className="text-sm font-semibold">Tinkune Kathmandu</p>
-                                </div>
-                            </td>
-                           <td className="border px-3">
-                            <NavLink className={'text-teal-700 underline text-sm'} to='/admin/user/user-Manish'>view</NavLink>
-                             / Edit / Delete
-                              </td>
-                           </tr>
+                           )
+                        })
+                     }
+                           
                         </tbody>
                     </table>
 

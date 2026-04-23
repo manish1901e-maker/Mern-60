@@ -30,5 +30,18 @@ import z from "zod"
     }).refine((data)=> data.password ===data.confirmPassword,
     {message:"Password and conform password doesnot match",path: ['confirmPassword']},
     )
-    export type ICreateUser = z.infer<typeof CreateUserDTO> // converts zod to Icreate user
+    export type ICreateUser = z.infer<typeof CreateUserDTO> & { 
+        image: string, 
+        address:{
+            address: string,
+            city: string,
+            state: string,
+            stateCode:string,
+            postalCode:string,
+            coordinates: {
+              lat: number,
+              lng: number,
+        }
+        country: string,
     
+    }};  // converts zod to ICreateUser and adds image as string

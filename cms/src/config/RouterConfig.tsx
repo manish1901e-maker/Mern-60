@@ -8,6 +8,7 @@ import UserCreate from "../pages/user/UserCreate";
 import UserList from "../pages/user/UserList";
 import UserDetail from "../pages/user/UserDetail";
 import CheckPermission from "../componets/auth/CheckPermission";
+import AdminDashboard from "../pages/dashboard/AdminDashboard";
 
 const routerConf = createBrowserRouter([
     { path: "/", element: <HomePage /> },
@@ -21,6 +22,7 @@ const routerConf = createBrowserRouter([
             </CheckPermission>
         ),
         children: [
+            { index: true, element:<AdminDashboard/>},
             { path: "users", element: <UserList /> },
             { path: "user/:username", element: <UserDetail /> },
             { path: "user/create", element: <UserCreate /> }
