@@ -1,12 +1,12 @@
 import { useEffect, useState, type ReactNode } from "react";
 import AuthContext from "../context/AuthContent";
-import { type ICreateUser } from "../types/AuthType";
+import { type IUserData } from "../types/AuthType";
 import type { ICredentials } from "../../componets/auth/LoginForm";
 import axiosInstance from "../client/axios-client";
 import Cookies from "js-cookie";
 
 export default function AuthProvider({children,}: Readonly<{ children: ReactNode }>) {
-    const [loggedInUserDetail, setLoggedInUserDetail] = useState<ICreateUser | null>(null);
+    const [loggedInUserDetail, setLoggedInUserDetail] = useState<IUserData | null>(null);
     const[loading, setloading]= useState<boolean>(true)
 
     type LoginResponse = {
@@ -14,7 +14,7 @@ export default function AuthProvider({children,}: Readonly<{ children: ReactNode
         refreshToken: string;
     };
 
-    const login = async (credentials: ICredentials): Promise<ICreateUser | void> => {
+    const login = async (credentials: ICredentials): Promise<IUserData | void> => {
         const loginData = await axiosInstance.post<LoginResponse>('/auth/login', {
             ...credentials,
             expiresInMins: 180
@@ -36,9 +36,9 @@ export default function AuthProvider({children,}: Readonly<{ children: ReactNode
 
         return await getLoggedInUser()
     };
-    const getLoggedInUser = async (): Promise<ICreateUser | void> => {
+    const getLoggedInUser = async (): Promise<IUserData | void> => {
         try {
-            const userDetail = await axiosInstance.get<ICreateUser>('/auth/me')
+            const userDetail = await axiosInstance.get<IUserData>('/auth/me')
             setLoggedInUserDetail(userDetail)
             return userDetail
         } catch (exception) {

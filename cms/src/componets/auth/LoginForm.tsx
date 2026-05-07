@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 
-import type { ICreateUser } from "../../lib/types/AuthType";
+import type { IUserData } from "../../lib/types/AuthType";
 import useAuth from "../../lib/hook/useAuth";
 
 //regex to make pass stronger
@@ -41,7 +41,7 @@ export default function LoginForm() {
     const navigate = useNavigate()
     const handleLogin = async (data: ICredentials) => {
         try {
-            const loggedInUserDetail= await login(data) as ICreateUser
+            const loggedInUserDetail= await login(data) as IUserData
             navigate('/' + loggedInUserDetail.role)
         } catch (exception) {
             console.log(exception)

@@ -1,28 +1,25 @@
-import { useParams, useSearchParams } from "react-router"
-import { useEffect } from "react"
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router"
+import { type AppDispatch, type RootState } from "../../lib/store/store";
+import { getUserDetail } from "../../lib/reducer/UserReducer";
+import type { IUserData } from "../../lib/types/AuthType";
 
-export default function UserDetail(){
-    const params = useParams()
-    
-    
-    const [query, setQuery]=useSearchParams()
-    console.log(query.get('page'), query.get('search'))
+export default function UserDetail() {
+  const params = useParams();
+  const dispatch = useDispatch<AppDispatch>();
 
-    useEffect(()=>{
-    setTimeout(()=>{
-        setQuery({
-            page:'1',
-            search: "testKeyword"
-            
-        })
+  const userDetail = useSelector((root: RootState) => {
+    return root?.user?.userDetail as IUserData
+  })
 
-    }, 3000)
-},[])
-    return(
-        <>
-        <p>
-            Params :{params.username}
-        </p>
-        </>
-    )
+  useEffect(() => {
+    dispatch(getUserDetail({userId: params.username as string}))
+  }, [params.username])
+
+  return (<>
+    <p>
+      Params : {userDetail?.firstName}
+    </p>
+  </>)
 }
