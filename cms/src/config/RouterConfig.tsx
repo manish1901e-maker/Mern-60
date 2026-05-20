@@ -9,6 +9,9 @@ import UserList from "../pages/user/UserList";
 import UserDetail from "../pages/user/UserDetail";
 import CheckPermission from "../componets/auth/CheckPermission";
 import AdminDashboard from "../pages/dashboard/AdminDashboard";
+import TodoList from "../pages/todo/TodoList";
+import ProductList from "../pages/productlist/ProductList";
+import TodoCreate from "../pages/todo/TodoCreate";
 
 const routerConf = createBrowserRouter([
     { path: "/", element: <HomePage /> },
@@ -25,7 +28,10 @@ const routerConf = createBrowserRouter([
             { index: true, element:<AdminDashboard/>},
             { path: "users", element: <UserList /> },
             { path: "user/:username", element: <UserDetail /> },
-            { path: "user/create", element: <UserCreate /> }
+            { path: "user/create", element: <UserCreate /> },
+            { path: "todo", element: <TodoList/>},
+            { path: "todo/create", element: <TodoCreate/>},
+            { path: "productlist", element: <ProductList/>}
         ]
     },
 

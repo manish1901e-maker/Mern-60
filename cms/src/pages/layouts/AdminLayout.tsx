@@ -39,6 +39,12 @@ export default function AdminLayout() {
         </NavLink>
       </li>
       <li>
+        <NavLink to="/admin/todo" className="flex item-center gap-3 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-700">
+          <Icon icon="fa:tasks"/>
+          ToDo
+        </NavLink>
+      </li>
+      <li>
         <NavLink to="/admin/user/create" className="flex item-center gap-3 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-700">
           <Icon icon="ph:sign-in"/>
           Sign In
