@@ -3,6 +3,7 @@ import axiosInstance from "../../lib/client/axios-client"
 import { useEffect, useState, type BaseSyntheticEvent } from "react"
 import { Icon } from "@iconify/react"
 import { NavLink } from "react-router"
+import Swal from "sweetalert2";
 
 
 
@@ -32,10 +33,10 @@ export default function TodoList () {
             icon:"warning",
             showCancelButton: true,
             confirmButtonColor:"#3085d6",
-            cancleButtonColor:"#d33"
+            cancelButtonColor:"#d33",
             confirmButtonText:"Yes, delete it!",
         })
-        if(XPathResult.isConfirmed){
+        if(result.isConfirmed){
             await axiosInstance.delete('/todo/'+id);
             toast.success("Todo Deleted Successfully.")
             // Uncomment this for custom api server
@@ -109,7 +110,7 @@ return(
                                             <Icon icon={"fa:eye"} />
                                         </a>
                                         <NavLink
-                                        to={'/admin/todo'.row.id+'/edit'}
+                                        to={'/admin/todo'+row.id+'/edit'}
                                         className="bg-sky-900 text-white flex justify-center items-center size-10 rounded-full text-sm transition hover:scale-103 hover:bg-sky-950"
                                         >
                                             <Icon icon={"fa:pencil"} />
